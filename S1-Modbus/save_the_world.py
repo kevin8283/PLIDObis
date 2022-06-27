@@ -1,19 +1,33 @@
-from pymodbus.client.sync import ModbusTcpClient # import modbus for Primary
-
+from pymodbus.client.sync import ModbusTcpClient
+import time
+import os
 
 # open connection with gateway at the specified address
-client = ModbusTcpClient('127.0.0.1', port=5020)
+client = ModbusTcpClient('192.168.3.36', port=5020)
 client.connect()
 
+def get_water_level():
+    result = client.read_input_registers(unit=28, address=0x00ff, count=1)
 
-# send a request to write a coil at register address 1 on unti 12 
-client.write_coil(address=1, value=True, unit=12)
+    return result.registers[0] / 100
 
-# send a request to read 1 coil at register address 1 on unit 12
-result = client.read_coils(address=1,count=1, unit=12)
+def set_pump_speed(speed):
+    client.write_register(unit=48, address=0x0200, count=1, value=speed)
 
-# dislay the result
-print(result.bits[0])
+while True:
+    water_level = get_water_level()
+    print("Water level: ", water_level, " %")
 
-# finished, close the TCP connection with the gateway. 
-client.close()
+    if water_level < 95:
+        set_pump_speed(20)
+    
+    elif water_level >= 95 and water_level <= 98:
+        set_pump_speed(5)
+
+    elif water_level > 98:
+        set_pump_speed(0)
+    
+    time.sleep(0.25)
+    os.system("clear")
+
+
