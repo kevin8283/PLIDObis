@@ -8,6 +8,8 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 while True:
     t = temperature.read_value()
 
-    s.sendto (t, ("127.0.0.1", 33033))
-    time.sleep(10)
+    temp_in_bytes = str(t).encode()
+    s.sendto(temp_in_bytes, ("127.0.0.1", 33033))
+    print(temp_in_bytes)
+    time.sleep(2)
 
