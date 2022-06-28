@@ -2,7 +2,7 @@ import socket
 import os
 import binascii
 import time
-import json
+import cbor2 as cbor
 
 os.system("clear")
 
@@ -23,7 +23,8 @@ def calculate_average(array):
 while True:
     data, addr = s.recvfrom(1500)
    
-    captor_values = json.loads(data.decode())
+    captor_values = cbor.loads(data)
+
     temperature_values.append(captor_values[0])
     pressure_values.append(captor_values[1])
     humidity_values.append(captor_values[2])

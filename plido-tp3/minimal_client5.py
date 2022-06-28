@@ -16,4 +16,4 @@ while True:
 
     j = [t, p, h]
     s.sendto (cbor.dumps(j), ("127.0.0.1", 33033))
-    time.sleep(10)
+    time.sleep(2)
