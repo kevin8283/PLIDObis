@@ -25,9 +25,9 @@ while True:
    
     captor_values = cbor.loads(data)
 
-    temperature_values.append(captor_values[0])
-    pressure_values.append(captor_values[1])
-    humidity_values.append(captor_values[2])
+    temperature_values.append(captor_values[0] / 100)
+    pressure_values.append(captor_values[1] / 100 )
+    humidity_values.append(captor_values[2] / 100 )
 
     avg_temp = calculate_average(temperature_values)
     avg_press = calculate_average(pressure_values)
