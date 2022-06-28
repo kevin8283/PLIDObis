@@ -15,5 +15,5 @@ while True:
     h = humidity.read_value()
 
     j = [t, p, h]
-    s.sendto (json.dumps(j).encode(), ("127.0.0.1", 33033))
-    time.sleep(10)
+    s.sendto(json.dumps(j).encode(), ("127.0.0.1", 33033))
+    time.sleep(2)

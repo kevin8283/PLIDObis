@@ -2,10 +2,16 @@ import socket
 import os
 import binascii
 import time
+import json
+
+os.system("clear")
+
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind(('0.0.0.0', 33033))
 
 temperature_values = []
+pressure_values = []
+humidity_values = []
 
 def calculate_average(array):
     sum = 0
@@ -16,9 +22,21 @@ def calculate_average(array):
 
 while True:
     data, addr = s.recvfrom(1500)
-    temperature = float(data.decode())
-    temperature_values.append(temperature)
+   
+    captor_values = json.loads(data.decode())
+    temperature_values.append(captor_values[0])
+    pressure_values.append(captor_values[1])
+    humidity_values.append(captor_values[2])
 
-    print("Average temperature :", calculate_average(temperature_values))
+    avg_temp = calculate_average(temperature_values)
+    avg_press = calculate_average(pressure_values)
+    avg_hum = calculate_average(humidity_values)
+
+    print("Average values from captor: ")
+    print("")
+    print("Temperature: ", avg_temp)
+    print("Pressure: ", avg_press)
+    print("Humidity: ", avg_hum)
+
     time.sleep(2)
     os.system('clear')
