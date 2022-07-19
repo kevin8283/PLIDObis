@@ -8,6 +8,7 @@ import binascii
 import datetime
 import time
 import pprint
+import os
 
 
 NB_ELEMENT = 5
@@ -47,11 +48,11 @@ while True:
         rec.time = time.mktime(datetime.datetime.now().timetuple())
         pack.add(rec)
 
-        time.sleep(10)
-
         pprint.pprint(json.loads(pack.to_json()))
         print ("JSON length: ", len(pack.to_json()), "bytes")
         print ("CBOR length: ", len(pack.to_cbor()), "bytes")
-    
+        
+        time.sleep(2)
+        os.system("clear")
     s.sendto(pack.to_cbor(), ("127.0.0.1", 33033))
 
