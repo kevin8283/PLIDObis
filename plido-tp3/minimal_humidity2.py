@@ -27,4 +27,4 @@ while True:
 
     print (len(h_history), len(cbor.dumps(h_history)), h_history)
 
-    time.sleep(10)
+    time.sleep(5)
