@@ -1,6 +1,7 @@
-from wifi_conf import known_nets
+SSID = "Notebook"
+KEY = "123456789"
 
-def connect():
+def connect(ssid, key):
     import network
 
     wlan = network.WLAN(network.STA_IF)
@@ -8,8 +9,10 @@ def connect():
 
     if not wlan.isconnected():
         print('connecting to network...')
-        wlan.connect('ssid', 'key')
+        wlan.connect(ssid, key)
         while not wlan.isconnected():
             pass
     
     print('network config:', wlan.ifconfig())
+
+connect(SSID, KEY)

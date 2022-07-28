@@ -1,0 +1,5 @@
+{
+    "pymakr.misc.notifications": {
+        "Uploading a project will delete all existing files on the device before uploading the project folder. After uploading a project, you can start it by restarting the device. For faster uploads without file deletion, please put the device in dev mode.": "Don't show again"
+    }
+}
